@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0043)file:///C:/Users/S55/Downloads/index_5.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -558,7 +557,13 @@ body {
       </div>
       <span>The Simpsons Arcade</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp(&#39;recyclebin&#39;)" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp('carthief')" onclick="selectIcon(this)">
+      <div class="icon-img">
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="2" fill="#1a1a2e"></rect><text x="16" y="22" text-anchor="middle" font-size="18">🚗</text></svg>
+      </div>
+      <span>Car Thief Online</span>
+    </div>
+    <div class="desktop-icon" ondblclick="openApp('recyclebin')" onclick="selectIcon(this)">
       <div class="icon-img">
         <svg width="32" height="32" viewBox="0 0 32 32"><rect x="8" y="10" width="16" height="18" fill="#c0c0c0" stroke="#000" stroke-width="1"></rect><line x1="11" y1="14" x2="11" y2="24" stroke="#000" stroke-width="1"></line><line x1="16" y1="14" x2="16" y2="24" stroke="#000" stroke-width="1"></line><line x1="21" y1="14" x2="21" y2="24" stroke="#000" stroke-width="1"></line><rect x="6" y="8" width="20" height="3" fill="#a0a0a0" stroke="#000" stroke-width="1"></rect><rect x="12" y="5" width="8" height="4" rx="1" fill="#808080" stroke="#000" stroke-width="1"></rect></svg>
       </div>
@@ -1121,6 +1126,7 @@ function openApp(appId) {
     case 'recyclebin': openRecycleBin(); break;
     case 'simpsons': openDOSGame('simpsons', 'The Simpsons Arcade Game (1991)', 'https://cors.archive.org/cors/msdos_Simpsons_Arcade_Game_The_1991/Simpsons_Arcade_Game_The_1991.zip'); break;
     case 'rogue': openDOSGame('rogue', 'Rogue', 'https://cors.archive.org/cors/ROGUE_PD/ROGUE.zip'); break;
+    case 'carthief': openGameWindow('carthief', 'Car Thief Online', 'https://marijuethampheroin.github.io/car-thief-online/', '🚗', false); break;
   }
 }
 
