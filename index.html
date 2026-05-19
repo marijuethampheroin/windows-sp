@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0043)file:///C:/Users/S55/Downloads/index_5.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Windows SP</title>
 <style>
@@ -419,8 +419,53 @@ body {
 .win-dialog-overlay { position: fixed; inset: 0; z-index: 9100; display: flex; align-items: center; justify-content: center; }
 .win-dialog { background: var(--win-gray); border-top: 2px solid var(--win-white); border-left: 2px solid var(--win-white); border-right: 2px solid var(--win-darker); border-bottom: 2px solid var(--win-darker); min-width: 280px; }
 
-/* ===== WALLPAPER ===== */
-.wallpaper-tiled { background-repeat: repeat; }
+/* ===== DESKTOP PROPERTIES ===== */
+.props-tabs { display: flex; gap: 0; padding: 4px 4px 0; }
+.props-tab {
+  padding: 4px 12px; cursor: pointer; font-size: 11px;
+  background: var(--win-gray); border: 1px solid var(--win-dark);
+  border-bottom: none; margin-bottom: -1px; position: relative;
+}
+.props-tab.active { background: var(--win-gray); z-index: 1; border-bottom: 1px solid var(--win-gray); font-weight: bold; }
+.props-tab:not(.active) { background: #b0b0b0; top: 2px; }
+.props-body { border: 1px solid var(--win-dark); margin: 0 4px; padding: 12px; background: var(--win-gray); min-height: 260px; }
+.props-section { font-weight: bold; margin-bottom: 8px; font-size: 11px; }
+.props-preview {
+  width: 180px; height: 120px; background: #008080; margin: 0 auto 12px;
+  border-top: 2px solid var(--win-darker); border-left: 2px solid var(--win-darker);
+  border-right: 2px solid var(--win-white); border-bottom: 2px solid var(--win-white);
+  position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+}
+.props-preview-taskbar { position: absolute; bottom: 0; left: 0; right: 0; height: 10px; background: var(--win-gray); border-top: 1px solid var(--win-white); }
+.wp-option {
+  display: flex; align-items: center; gap: 6px; padding: 3px 6px; cursor: pointer; font-size: 11px;
+  border: 1px solid transparent;
+}
+.wp-option:hover { background: #b0b0b0; }
+.wp-option.selected { background: var(--win-blue); color: #fff; border-color: var(--win-blue); }
+.wp-swatch { width: 16px; height: 16px; border: 1px solid #000; flex-shrink: 0; }
+.ss-option {
+  display: flex; align-items: center; gap: 6px; padding: 3px 6px; cursor: pointer; font-size: 11px;
+}
+.ss-option:hover { background: #b0b0b0; }
+.ss-option.selected { background: var(--win-blue); color: #fff; }
+.props-listbox {
+  height: 120px; overflow-y: auto; border-top: 2px solid var(--win-darker);
+  border-left: 2px solid var(--win-darker); border-right: 2px solid var(--win-white);
+  border-bottom: 2px solid var(--win-white); background: #fff; margin-bottom: 8px;
+}
+
+/* ===== SCREENSAVER ===== */
+#screensaver {
+  position: fixed; inset: 0; z-index: 19000;
+  background: #000; display: none;
+  cursor: none; overflow: hidden;
+}
+
+/* ===== WALLPAPER PATTERNS ===== */
+.wp-tiled { background-repeat: repeat; background-size: auto; }
+
+
 
 /* ===== ANIMATIONS ===== */
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
@@ -430,7 +475,7 @@ body {
 <body>
 
 <!-- BOOT SCREEN -->
-<div id="boot-screen">
+<div id="boot-screen" style="display: none;">
   <div id="boot-logo">
     <div class="win-flag">
       <div></div><div></div><div></div><div></div>
@@ -439,77 +484,83 @@ body {
       <span>Windows</span> <span style="font-weight:400; color:#ccc;">SP</span><span class="reg">®</span>
     </div>
   </div>
-  <div id="boot-progress-wrap"><div id="boot-progress"></div></div>
-  <div id="boot-msg">Starting Windows SP...</div>
+  <div id="boot-progress-wrap"><div id="boot-progress" style="width: 100%;"></div></div>
+  <div id="boot-msg">Welcome to Windows SP!</div>
   <div id="boot-copyright">Copyright © 1981-1998 Microsoft Corp.</div>
 </div>
 
 <!-- DESKTOP -->
-<div id="desktop">
+<div id="desktop" style="display: block;">
   <div id="desktop-icons">
-    <div class="desktop-icon" ondblclick="openApp('mycomputer')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;mycomputer&#39;)" onclick="selectIcon(this)">
       <div class="icon-img" style="position:relative">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="4" width="28" height="20" rx="1" fill="#c0c0c0" stroke="#000" stroke-width="1"/><rect x="4" y="6" width="24" height="14" fill="#008080"/><rect x="8" y="22" width="16" height="3" fill="#a0a0a0"/><rect x="4" y="25" width="24" height="2" fill="#808080"/></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="4" width="28" height="20" rx="1" fill="#c0c0c0" stroke="#000" stroke-width="1"></rect><rect x="4" y="6" width="24" height="14" fill="#008080"></rect><rect x="8" y="22" width="16" height="3" fill="#a0a0a0"></rect><rect x="4" y="25" width="24" height="2" fill="#808080"></rect></svg>
       </div>
       <span>My Computer</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('notepad')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;notepad&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="2" width="20" height="26" rx="0" fill="#fff" stroke="#000" stroke-width="1"/><polygon points="20,2 24,6 20,6" fill="#c0c0c0" stroke="#000" stroke-width="1"/><line x1="7" y1="10" x2="21" y2="10" stroke="#c0c0c0" stroke-width="1.5"/><line x1="7" y1="13" x2="21" y2="13" stroke="#c0c0c0" stroke-width="1.5"/><line x1="7" y1="16" x2="21" y2="16" stroke="#c0c0c0" stroke-width="1.5"/><line x1="7" y1="19" x2="17" y2="19" stroke="#c0c0c0" stroke-width="1.5"/><rect x="22" y="18" width="8" height="10" fill="#ffd700" stroke="#000" stroke-width="1"/><line x1="24" y1="21" x2="28" y2="21" stroke="#000" stroke-width="1"/><line x1="24" y1="23" x2="28" y2="23" stroke="#000" stroke-width="1"/></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="2" width="20" height="26" rx="0" fill="#fff" stroke="#000" stroke-width="1"></rect><polygon points="20,2 24,6 20,6" fill="#c0c0c0" stroke="#000" stroke-width="1"></polygon><line x1="7" y1="10" x2="21" y2="10" stroke="#c0c0c0" stroke-width="1.5"></line><line x1="7" y1="13" x2="21" y2="13" stroke="#c0c0c0" stroke-width="1.5"></line><line x1="7" y1="16" x2="21" y2="16" stroke="#c0c0c0" stroke-width="1.5"></line><line x1="7" y1="19" x2="17" y2="19" stroke="#c0c0c0" stroke-width="1.5"></line><rect x="22" y="18" width="8" height="10" fill="#ffd700" stroke="#000" stroke-width="1"></rect><line x1="24" y1="21" x2="28" y2="21" stroke="#000" stroke-width="1"></line><line x1="24" y1="23" x2="28" y2="23" stroke="#000" stroke-width="1"></line></svg>
       </div>
       <span>Notepad</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('paint')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;paint&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="6" width="22" height="22" fill="#fff" stroke="#000" stroke-width="1"/><rect x="2" y="6" width="22" height="4" fill="#000080"/><circle cx="26" cy="8" r="5" fill="#ff6600" stroke="#000" stroke-width="1"/><line x1="6" y1="14" x2="18" y2="14" stroke="#f00" stroke-width="2"/><line x1="6" y1="18" x2="14" y2="18" stroke="#00a" stroke-width="2"/><line x1="6" y1="22" x2="20" y2="22" stroke="#080" stroke-width="2"/></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="6" width="22" height="22" fill="#fff" stroke="#000" stroke-width="1"></rect><rect x="2" y="6" width="22" height="4" fill="#000080"></rect><circle cx="26" cy="8" r="5" fill="#ff6600" stroke="#000" stroke-width="1"></circle><line x1="6" y1="14" x2="18" y2="14" stroke="#f00" stroke-width="2"></line><line x1="6" y1="18" x2="14" y2="18" stroke="#00a" stroke-width="2"></line><line x1="6" y1="22" x2="20" y2="22" stroke="#080" stroke-width="2"></line></svg>
       </div>
       <span>Paint</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('minesweeper')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;minesweeper&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="2" width="28" height="28" fill="#c0c0c0" stroke="#000" stroke-width="1"/><circle cx="16" cy="16" r="8" fill="#000"/><circle cx="16" cy="16" r="3" fill="#c0c0c0"/><line x1="16" y1="4" x2="16" y2="8" stroke="#000" stroke-width="2"/><line x1="16" y1="24" x2="16" y2="28" stroke="#000" stroke-width="2"/><line x1="4" y1="16" x2="8" y2="16" stroke="#000" stroke-width="2"/><line x1="24" y1="16" x2="28" y2="16" stroke="#000" stroke-width="2"/></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="2" width="28" height="28" fill="#c0c0c0" stroke="#000" stroke-width="1"></rect><circle cx="16" cy="16" r="8" fill="#000"></circle><circle cx="16" cy="16" r="3" fill="#c0c0c0"></circle><line x1="16" y1="4" x2="16" y2="8" stroke="#000" stroke-width="2"></line><line x1="16" y1="24" x2="16" y2="28" stroke="#000" stroke-width="2"></line><line x1="4" y1="16" x2="8" y2="16" stroke="#000" stroke-width="2"></line><line x1="24" y1="16" x2="28" y2="16" stroke="#000" stroke-width="2"></line></svg>
       </div>
       <span>Minesweeper</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('calc')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;calc&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="2" width="24" height="28" rx="2" fill="#c0c0c0" stroke="#000" stroke-width="1"/><rect x="6" y="4" width="20" height="8" fill="#008000"/><rect x="6" y="14" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"/><rect x="11" y="14" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"/><rect x="16" y="14" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"/><rect x="21" y="14" width="4" height="4" fill="#ff8800" stroke="#000" stroke-width="0.5"/><rect x="6" y="19" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"/><rect x="11" y="19" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"/><rect x="16" y="19" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"/><rect x="21" y="19" width="4" height="8" fill="#ff4400" stroke="#000" stroke-width="0.5"/><rect x="6" y="24" width="9" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"/><rect x="16" y="24" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"/></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="2" width="24" height="28" rx="2" fill="#c0c0c0" stroke="#000" stroke-width="1"></rect><rect x="6" y="4" width="20" height="8" fill="#008000"></rect><rect x="6" y="14" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"></rect><rect x="11" y="14" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"></rect><rect x="16" y="14" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"></rect><rect x="21" y="14" width="4" height="4" fill="#ff8800" stroke="#000" stroke-width="0.5"></rect><rect x="6" y="19" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"></rect><rect x="11" y="19" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"></rect><rect x="16" y="19" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"></rect><rect x="21" y="19" width="4" height="8" fill="#ff4400" stroke="#000" stroke-width="0.5"></rect><rect x="6" y="24" width="9" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"></rect><rect x="16" y="24" width="4" height="4" fill="#a0a0a0" stroke="#000" stroke-width="0.5"></rect></svg>
       </div>
       <span>Calculator</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('about')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;about&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#fff" stroke="#000" stroke-width="1"/><text x="16" y="22" text-anchor="middle" font-size="18" font-weight="bold" fill="#00a">i</text></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#fff" stroke="#000" stroke-width="1"></circle><text x="16" y="22" text-anchor="middle" font-size="18" font-weight="bold" fill="#00a">i</text></svg>
       </div>
       <span>About</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('explorer')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;explorer&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="8" width="28" height="20" fill="#ffd700" stroke="#000" stroke-width="1"/><rect x="2" y="8" width="12" height="3" fill="#ffd700" stroke="#000" stroke-width="1"/><polygon points="2,8 8,4 14,8" fill="#ffd700" stroke="#000" stroke-width="1"/></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="8" width="28" height="20" fill="#ffd700" stroke="#000" stroke-width="1"></rect><rect x="2" y="8" width="12" height="3" fill="#ffd700" stroke="#000" stroke-width="1"></rect><polygon points="2,8 8,4 14,8" fill="#ffd700" stroke="#000" stroke-width="1"></polygon></svg>
       </div>
       <span>My Documents</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('pimpcity')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;pimpcity&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="2" fill="#1a0030"/><text x="16" y="22" text-anchor="middle" font-size="20">🎩</text></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="2" fill="#1a0030"></rect><text x="16" y="22" text-anchor="middle" font-size="20">🎩</text></svg>
       </div>
       <span>Pimp City</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('newlives')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;newlives&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="2" fill="#003020"/><text x="16" y="22" text-anchor="middle" font-size="20">🌍</text></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="2" fill="#003020"></rect><text x="16" y="22" text-anchor="middle" font-size="20">🌍</text></svg>
       </div>
       <span>New Lives Online Classic</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('simpsons')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;rogue&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="2" fill="#ffcc00"/><text x="16" y="22" text-anchor="middle" font-size="18">🕹️</text></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="2" fill="#1a1a1a"></rect><text x="16" y="22" text-anchor="middle" font-size="18">⚔️</text></svg>
+      </div>
+      <span>Rogue</span>
+    </div>
+    <div class="desktop-icon" ondblclick="openApp(&#39;simpsons&#39;)" onclick="selectIcon(this)">
+      <div class="icon-img">
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="2" fill="#ffcc00"></rect><text x="16" y="22" text-anchor="middle" font-size="18">🕹️</text></svg>
       </div>
       <span>The Simpsons Arcade</span>
     </div>
-    <div class="desktop-icon" ondblclick="openApp('recyclebin')" onclick="selectIcon(this)">
+    <div class="desktop-icon" ondblclick="openApp(&#39;recyclebin&#39;)" onclick="selectIcon(this)">
       <div class="icon-img">
-        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="8" y="10" width="16" height="18" fill="#c0c0c0" stroke="#000" stroke-width="1"/><line x1="11" y1="14" x2="11" y2="24" stroke="#000" stroke-width="1"/><line x1="16" y1="14" x2="16" y2="24" stroke="#000" stroke-width="1"/><line x1="21" y1="14" x2="21" y2="24" stroke="#000" stroke-width="1"/><rect x="6" y="8" width="20" height="3" fill="#a0a0a0" stroke="#000" stroke-width="1"/><rect x="12" y="5" width="8" height="4" rx="1" fill="#808080" stroke="#000" stroke-width="1"/></svg>
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect x="8" y="10" width="16" height="18" fill="#c0c0c0" stroke="#000" stroke-width="1"></rect><line x1="11" y1="14" x2="11" y2="24" stroke="#000" stroke-width="1"></line><line x1="16" y1="14" x2="16" y2="24" stroke="#000" stroke-width="1"></line><line x1="21" y1="14" x2="21" y2="24" stroke="#000" stroke-width="1"></line><rect x="6" y="8" width="20" height="3" fill="#a0a0a0" stroke="#000" stroke-width="1"></rect><rect x="12" y="5" width="8" height="4" rx="1" fill="#808080" stroke="#000" stroke-width="1"></rect></svg>
       </div>
       <span>Recycle Bin</span>
     </div>
@@ -526,66 +577,69 @@ body {
   <div id="taskbar-tasks"></div>
   <div id="taskbar-divider"></div>
   <div id="taskbar-tray">
-    <svg width="16" height="16" viewBox="0 0 16 16"><polygon points="8,2 14,14 2,14" fill="#ffd700" stroke="#000" stroke-width="1"/><text x="8" y="13" text-anchor="middle" font-size="8" font-weight="bold">!</text></svg>
-    <span id="clock">12:00 PM</span>
+    <svg width="16" height="16" viewBox="0 0 16 16"><polygon points="8,2 14,14 2,14" fill="#ffd700" stroke="#000" stroke-width="1"></polygon><text x="8" y="13" text-anchor="middle" font-size="8" font-weight="bold">!</text></svg>
+    <span id="clock">12:34 PM</span>
   </div>
 </div>
 
 <!-- START MENU -->
-<div id="start-menu">
+<div id="start-menu" style="display: none;">
   <div id="start-menu-sidebar"><span>Windows SP</span></div>
   <div id="start-menu-items">
-    <div class="start-item" onclick="openApp('pimpcity'); closeStartMenu()">
-      <svg class="si-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="2" fill="#1a0030"/><text x="12" y="17" text-anchor="middle" font-size="14">🎩</text></svg>
+    <div class="start-item" onclick="openApp(&#39;pimpcity&#39;); closeStartMenu()">
+      <svg class="si-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="2" fill="#1a0030"></rect><text x="12" y="17" text-anchor="middle" font-size="14">🎩</text></svg>
       Pimp City
     </div>
-    <div class="start-item" onclick="openApp('newlives'); closeStartMenu()">
-      <svg class="si-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="2" fill="#003020"/><text x="12" y="17" text-anchor="middle" font-size="14">🌍</text></svg>
+    <div class="start-item" onclick="openApp(&#39;newlives&#39;); closeStartMenu()">
+      <svg class="si-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="2" fill="#003020"></rect><text x="12" y="17" text-anchor="middle" font-size="14">🌍</text></svg>
       New Lives Online Classic
     </div>
     <div class="start-separator"></div>
-    <div class="start-item" onclick="openApp('notepad'); closeStartMenu()">
-      <svg class="si-icon" viewBox="0 0 24 24"><rect x="3" y="1" width="15" height="20" fill="#fff" stroke="#000" stroke-width="1"/><polygon points="15,1 18,4 15,4" fill="#ccc" stroke="#000" stroke-width="0.5"/><line x1="5" y1="8" x2="16" y2="8" stroke="#ccc" stroke-width="1"/><line x1="5" y1="11" x2="16" y2="11" stroke="#ccc" stroke-width="1"/><line x1="5" y1="14" x2="12" y2="14" stroke="#ccc" stroke-width="1"/></svg>
+    <div class="start-item" onclick="openApp(&#39;notepad&#39;); closeStartMenu()">
+      <svg class="si-icon" viewBox="0 0 24 24"><rect x="3" y="1" width="15" height="20" fill="#fff" stroke="#000" stroke-width="1"></rect><polygon points="15,1 18,4 15,4" fill="#ccc" stroke="#000" stroke-width="0.5"></polygon><line x1="5" y1="8" x2="16" y2="8" stroke="#ccc" stroke-width="1"></line><line x1="5" y1="11" x2="16" y2="11" stroke="#ccc" stroke-width="1"></line><line x1="5" y1="14" x2="12" y2="14" stroke="#ccc" stroke-width="1"></line></svg>
       Notepad
     </div>
-    <div class="start-item" onclick="openApp('paint'); closeStartMenu()">
-      <svg class="si-icon" viewBox="0 0 24 24"><rect x="1" y="4" width="18" height="18" fill="#fff" stroke="#000" stroke-width="1"/><circle cx="20" cy="6" r="4" fill="#f60" stroke="#000" stroke-width="0.5"/></svg>
+    <div class="start-item" onclick="openApp(&#39;paint&#39;); closeStartMenu()">
+      <svg class="si-icon" viewBox="0 0 24 24"><rect x="1" y="4" width="18" height="18" fill="#fff" stroke="#000" stroke-width="1"></rect><circle cx="20" cy="6" r="4" fill="#f60" stroke="#000" stroke-width="0.5"></circle></svg>
       Paint
     </div>
-    <div class="start-item" onclick="openApp('minesweeper'); closeStartMenu()">
-      <svg class="si-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" fill="#ccc" stroke="#000" stroke-width="1"/><circle cx="12" cy="12" r="6" fill="#000"/></svg>
+    <div class="start-item" onclick="openApp(&#39;minesweeper&#39;); closeStartMenu()">
+      <svg class="si-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" fill="#ccc" stroke="#000" stroke-width="1"></rect><circle cx="12" cy="12" r="6" fill="#000"></circle></svg>
       Minesweeper
     </div>
-    <div class="start-item" onclick="openApp('calc'); closeStartMenu()">
-      <svg class="si-icon" viewBox="0 0 24 24"><rect x="3" y="1" width="18" height="22" rx="1" fill="#ccc" stroke="#000" stroke-width="1"/><rect x="5" y="3" width="14" height="6" fill="#0a0"/></svg>
+    <div class="start-item" onclick="openApp(&#39;calc&#39;); closeStartMenu()">
+      <svg class="si-icon" viewBox="0 0 24 24"><rect x="3" y="1" width="18" height="22" rx="1" fill="#ccc" stroke="#000" stroke-width="1"></rect><rect x="5" y="3" width="14" height="6" fill="#0a0"></rect></svg>
       Calculator
     </div>
-    <div class="start-item" onclick="openApp('explorer'); closeStartMenu()">
-      <svg class="si-icon" viewBox="0 0 24 24"><rect x="1" y="6" width="22" height="16" fill="#ffd700" stroke="#000" stroke-width="1"/><polygon points="1,6 6,2 11,6" fill="#ffd700" stroke="#000" stroke-width="1"/></svg>
+    <div class="start-item" onclick="openApp(&#39;explorer&#39;); closeStartMenu()">
+      <svg class="si-icon" viewBox="0 0 24 24"><rect x="1" y="6" width="22" height="16" fill="#ffd700" stroke="#000" stroke-width="1"></rect><polygon points="1,6 6,2 11,6" fill="#ffd700" stroke="#000" stroke-width="1"></polygon></svg>
       My Documents
     </div>
     <div class="start-separator"></div>
-    <div class="start-item" onclick="openApp('about'); closeStartMenu()">
-      <svg class="si-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff" stroke="#000" stroke-width="1"/><text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold" fill="#00a">i</text></svg>
+    <div class="start-item" onclick="openApp(&#39;about&#39;); closeStartMenu()">
+      <svg class="si-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff" stroke="#000" stroke-width="1"></circle><text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold" fill="#00a">i</text></svg>
       About Windows SP
     </div>
     <div class="start-separator"></div>
     <div class="start-item" onclick="doShutdown()">
-      <svg class="si-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#c00" stroke="#000" stroke-width="1"/><rect x="11" y="4" width="2" height="9" fill="#fff"/><path d="M7 7 a7 7 0 1 0 10 0" fill="none" stroke="#fff" stroke-width="2"/></svg>
+      <svg class="si-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#c00" stroke="#000" stroke-width="1"></circle><rect x="11" y="4" width="2" height="9" fill="#fff"></rect><path d="M7 7 a7 7 0 1 0 10 0" fill="none" stroke="#fff" stroke-width="2"></path></svg>
       Shut Down...
     </div>
   </div>
 </div>
 
 <!-- CONTEXT MENU -->
-<div id="context-menu">
+<div id="context-menu" style="display: block; left: 93px; top: 211px;">
   <div class="ctx-item" onclick="refreshDesktop()">Refresh</div>
   <div class="ctx-separator"></div>
-  <div class="ctx-item" onclick="openApp('about'); closeContextMenu()">About Windows SP</div>
-  <div class="ctx-item" onclick="changeWallpaper()">Change Wallpaper</div>
+  <div class="ctx-item" onclick="openApp(&#39;about&#39;); closeContextMenu()">About Windows SP</div>
+  <div class="ctx-item" onclick="openDesktopProperties(); closeContextMenu()">Properties</div>
   <div class="ctx-separator"></div>
-  <div class="ctx-item" onclick="openApp('notepad'); closeContextMenu()">New Text Document</div>
+  <div class="ctx-item" onclick="openApp(&#39;notepad&#39;); closeContextMenu()">New Text Document</div>
 </div>
+
+<!-- SCREENSAVER -->
+<div id="screensaver" onclick="dismissScreensaver()" onmousemove="dismissScreensaver()"></div>
 
 <!-- WINDOWS CONTAINER (dynamically added) -->
 <div id="windows-container"></div>
@@ -803,13 +857,241 @@ document.getElementById('desktop').addEventListener('contextmenu', e => {
 function closeContextMenu() { document.getElementById('context-menu').style.display = 'none'; }
 function refreshDesktop() { closeContextMenu(); }
 
-// ===== WALLPAPER =====
-const wallpapers = ['#008080','#000080','#0a4a0a','#4a0a0a','#2a2a4a'];
-let wpIdx = 0;
-function changeWallpaper() {
-  wpIdx = (wpIdx + 1) % wallpapers.length;
-  document.getElementById('desktop').style.background = wallpapers[wpIdx];
-  closeContextMenu();
+// ===== WALLPAPER & DESKTOP PROPERTIES =====
+const wallpapers = [
+  { name: '(None)',        style: { background: '#008080' } },
+  { name: 'Teal',         style: { background: '#008080' } },
+  { name: 'Navy',         style: { background: '#000080' } },
+  { name: 'Forest',       style: { background: '#0a4a0a' } },
+  { name: 'Maroon',       style: { background: '#4a0a0a' } },
+  { name: 'Slate',        style: { background: '#2a2a4a' } },
+  { name: 'Black',        style: { background: '#000000' } },
+  { name: 'Bricks',       style: { background: '#8b4513', backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 10px,rgba(0,0,0,0.3) 10px,rgba(0,0,0,0.3) 12px),repeating-linear-gradient(90deg,rgba(0,0,0,0.15) 0px,rgba(0,0,0,0.15) 1px,transparent 1px,transparent 20px)', backgroundSize: '40px 24px' } },
+  { name: 'Checkers',     style: { background: '#000', backgroundImage: 'repeating-conic-gradient(#333 0% 25%, #000 0% 50%)', backgroundSize: '20px 20px' } },
+  { name: 'Dots',         style: { background: '#000080', backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)', backgroundSize: '12px 12px' } },
+  { name: 'Weave',        style: { background: '#4a3000', backgroundImage: 'repeating-linear-gradient(45deg,rgba(255,200,0,0.15) 0,rgba(255,200,0,0.15) 2px,transparent 0,transparent 50%),repeating-linear-gradient(-45deg,rgba(255,200,0,0.15) 0,rgba(255,200,0,0.15) 2px,transparent 0,transparent 50%)', backgroundSize: '10px 10px' } },
+];
+let currentWP = 0;
+
+const screensavers = [
+  { name: '(None)',         fn: null },
+  { name: 'Blank',          fn: ssBlank },
+  { name: 'Flying Windows', fn: ssFlying },
+  { name: 'Starfield',      fn: ssStarfield },
+  { name: 'Matrix Rain',    fn: ssMatrix },
+  { name: 'Bouncing Logo',  fn: ssBounce },
+];
+let currentSS = 0;
+let ssTimeout = null, ssInterval = null, ssAnimFrame = null;
+let ssIdleMinutes = 1;
+
+function applyWallpaper(idx) {
+  currentWP = idx;
+  const wp = wallpapers[idx];
+  const d = document.getElementById('desktop');
+  Object.assign(d.style, { background:'', backgroundImage:'', backgroundSize:'', backgroundRepeat:'' });
+  Object.assign(d.style, wp.style);
+}
+
+function openDesktopProperties() {
+  if (document.getElementById('win-deskprops')) { bringToFront('deskprops'); return; }
+  const icon = `<svg class="win-title-icon" viewBox="0 0 16 16"><rect width="16" height="16" fill="#008080"/><rect x="2" y="10" width="12" height="4" fill="#c0c0c0"/></svg>`;
+
+  const wpList = wallpapers.map((w,i) => `<div class="wp-option${i===currentWP?' selected':''}" onclick="selectWPOption(this,${i})"><div class="wp-swatch" style="background:${w.style.background||'#008080'}"></div>${w.name}</div>`).join('');
+  const ssList = screensavers.map((s,i) => `<div class="ss-option${i===currentSS?' selected':''}" onclick="selectSSOption(this,${i})">${s.name}</div>`).join('');
+
+  const content = `<div style="padding:4px">
+    <div class="props-tabs">
+      <div class="props-tab active" id="ptab-bg" onclick="switchPropsTab('bg')">Background</div>
+      <div class="props-tab" id="ptab-ss" onclick="switchPropsTab('ss')">Screen Saver</div>
+    </div>
+    <div class="props-body">
+      <!-- BACKGROUND TAB -->
+      <div id="ptab-content-bg">
+        <div class="props-preview" id="wp-preview">
+          <div class="props-preview-taskbar"></div>
+        </div>
+        <div class="props-section">Wallpaper:</div>
+        <div class="props-listbox">${wpList}</div>
+      </div>
+      <!-- SCREENSAVER TAB -->
+      <div id="ptab-content-ss" style="display:none">
+        <div class="props-preview" id="ss-preview" style="background:#000;cursor:pointer" onclick="previewSS()">
+          <span style="color:#fff;font-size:10px;opacity:0.5">click to preview</span>
+          <div class="props-preview-taskbar"></div>
+        </div>
+        <div class="props-section">Screen Saver:</div>
+        <div class="props-listbox">${ssList}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11px">
+          <label>Wait:</label>
+          <input type="number" min="1" max="60" value="${ssIdleMinutes}" style="width:40px;font-size:11px" id="ss-wait-input" oninput="ssIdleMinutes=+this.value;resetSSTimer()">
+          <label>minutes</label>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:4px;padding:6px 4px 4px">
+      <button class="calc-btn" style="width:70px" onclick="applyWallpaper(currentWP);applySSChoice();closeWin('deskprops')">OK</button>
+      <button class="calc-btn" style="width:70px" onclick="closeWin('deskprops')">Cancel</button>
+      <button class="calc-btn" style="width:70px" onclick="applyWallpaper(currentWP);applySSChoice()">Apply</button>
+    </div>
+  </div>`;
+
+  makeWindow('deskprops', 'Display Properties', content, { width: 320, height: 420, icon });
+  updateWPPreview(currentWP);
+}
+
+function switchPropsTab(tab) {
+  ['bg','ss'].forEach(t => {
+    document.getElementById('ptab-' + t)?.classList.toggle('active', t === tab);
+    const c = document.getElementById('ptab-content-' + t);
+    if (c) c.style.display = t === tab ? 'block' : 'none';
+  });
+}
+
+function selectWPOption(el, idx) {
+  document.querySelectorAll('.wp-option').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  currentWP = idx;
+  updateWPPreview(idx);
+  applyWallpaper(idx);
+}
+
+function updateWPPreview(idx) {
+  const prev = document.getElementById('wp-preview');
+  if (!prev) return;
+  const wp = wallpapers[idx];
+  Object.assign(prev.style, { background:'', backgroundImage:'', backgroundSize:'', backgroundRepeat:'' });
+  Object.assign(prev.style, wp.style);
+}
+
+function selectSSOption(el, idx) {
+  document.querySelectorAll('.ss-option').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  currentSS = idx;
+  applySSChoice();
+}
+
+function applySSChoice() { resetSSTimer(); }
+
+// ===== SCREENSAVER ENGINE =====
+function resetSSTimer() {
+  clearTimeout(ssTimeout);
+  if (screensavers[currentSS].fn) {
+    ssTimeout = setTimeout(activateSS, ssIdleMinutes * 60 * 1000);
+  }
+}
+
+document.addEventListener('mousemove', resetSSTimer);
+document.addEventListener('keydown', resetSSTimer);
+resetSSTimer();
+
+function activateSS() {
+  const ss = document.getElementById('screensaver');
+  ss.innerHTML = '';
+  ss.style.display = 'block';
+  const fn = screensavers[currentSS].fn;
+  if (fn) fn(ss);
+}
+
+function dismissScreensaver() {
+  const ss = document.getElementById('screensaver');
+  ss.style.display = 'none';
+  ss.innerHTML = '';
+  clearInterval(ssInterval);
+  cancelAnimationFrame(ssAnimFrame);
+  resetSSTimer();
+}
+
+function previewSS() {
+  activateSS();
+  setTimeout(dismissScreensaver, 4000);
+}
+
+// --- Screensaver implementations ---
+function ssBlank(el) { el.style.background = '#000'; }
+
+function ssFlying(el) {
+  el.style.background = '#000';
+  const colors = ['#f00','#0f0','#00f','#ff0','#f0f','#0ff'];
+  ssInterval = setInterval(() => {
+    const d = document.createElement('div');
+    const size = 20 + Math.random() * 40;
+    d.style.cssText = `position:absolute;font-size:${size}px;opacity:0.8;transition:all 3s linear;pointer-events:none`;
+    d.textContent = '⊞';
+    d.style.color = colors[Math.floor(Math.random()*colors.length)];
+    d.style.left = Math.random() * (window.innerWidth - 60) + 'px';
+    d.style.top = Math.random() * (window.innerHeight - 60) + 'px';
+    el.appendChild(d);
+    setTimeout(() => d.remove(), 3000);
+  }, 300);
+}
+
+function ssStarfield(el) {
+  el.style.background = '#000';
+  const canvas = document.createElement('canvas');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  canvas.style.cssText = 'position:absolute;inset:0';
+  el.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  const stars = Array.from({length:200}, () => ({
+    x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+    z: Math.random()*canvas.width, pz: 0
+  }));
+  function frame() {
+    ctx.fillStyle = 'rgba(0,0,0,0.2)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    const cx = canvas.width/2, cy = canvas.height/2;
+    stars.forEach(s => {
+      s.pz = s.z; s.z -= 4;
+      if (s.z <= 0) { s.x=Math.random()*canvas.width; s.y=Math.random()*canvas.height; s.z=canvas.width; s.pz=s.z; }
+      const sx = (s.x-cx)*(canvas.width/s.z)+cx, sy = (s.y-cy)*(canvas.width/s.z)+cy;
+      const px = (s.x-cx)*(canvas.width/s.pz)+cx, py = (s.y-cy)*(canvas.width/s.pz)+cy;
+      const size = Math.max(0.5, (1-s.z/canvas.width)*3);
+      ctx.strokeStyle = `rgba(255,255,255,${1-s.z/canvas.width})`;
+      ctx.lineWidth = size; ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(sx,sy); ctx.stroke();
+    });
+    ssAnimFrame = requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+function ssMatrix(el) {
+  el.style.background = '#000';
+  const canvas = document.createElement('canvas');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  canvas.style.cssText = 'position:absolute;inset:0';
+  el.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  const cols = Math.floor(canvas.width / 14);
+  const drops = Array(cols).fill(1);
+  function frame() {
+    ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = '#0f0'; ctx.font = '13px monospace';
+    drops.forEach((y,i) => {
+      ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96), i*14, y*14);
+      if (y*14 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+    ssAnimFrame = requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+function ssBounce(el) {
+  el.style.background = '#000';
+  let x = Math.random()*600, y = Math.random()*300, vx = 3, vy = 2;
+  const logo = document.createElement('div');
+  logo.style.cssText = 'position:absolute;font-size:28px;font-weight:bold;color:#fff;white-space:nowrap;';
+  logo.textContent = '⊞ Windows SP';
+  el.appendChild(logo);
+  const colors = ['#f00','#0f0','#00f','#ff0','#f0f','#0ff','#fff'];
+  let ci = 0;
+  ssInterval = setInterval(() => {
+    x += vx; y += vy;
+    const w = el.offsetWidth - 180, h = el.offsetHeight - 40;
+    if (x <= 0 || x >= w) { vx *= -1; logo.style.color = colors[ci++ % colors.length]; }
+    if (y <= 0 || y >= h) { vy *= -1; logo.style.color = colors[ci++ % colors.length]; }
+    logo.style.left = x + 'px'; logo.style.top = y + 'px';
+  }, 16);
 }
 
 // ===== SHUTDOWN =====
@@ -838,6 +1120,7 @@ function openApp(appId) {
     case 'mycomputer': openMyComputer(); break;
     case 'recyclebin': openRecycleBin(); break;
     case 'simpsons': openDOSGame('simpsons', 'The Simpsons Arcade Game (1991)', 'https://cors.archive.org/cors/msdos_Simpsons_Arcade_Game_The_1991/Simpsons_Arcade_Game_The_1991.zip'); break;
+    case 'rogue': openDOSGame('rogue', 'Rogue', 'https://cors.archive.org/cors/ROGUE_PD/ROGUE.zip'); break;
   }
 }
 
@@ -1335,5 +1618,6 @@ document.getElementById('desktop').addEventListener('dblclick', e => {
   if (!e.target.closest('.desktop-icon')) return;
 });
 </script>
-</body>
-</html>
+
+
+</body></html>
